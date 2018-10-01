@@ -21,7 +21,7 @@ public class AppointmentBL extends AbstractListModel {
     }
 
     @Override
-    public Object getElementAt(int i) {
+    public Appointment getElementAt(int i) {
        return appointments.get(i);
     }
     
@@ -30,5 +30,10 @@ public class AppointmentBL extends AbstractListModel {
     public void add(Appointment ap) {
         this.appointments.add(ap);
         fireIntervalAdded(ap, this.appointments.size()-1, this.appointments.size()-1);
+    }
+    public void delete(Appointment ap){
+        
+        this.appointments.remove((ap));
+        fireIntervalRemoved(this, this.appointments.size(),this.appointments.size());
     }
 }

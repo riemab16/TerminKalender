@@ -51,6 +51,11 @@ public class AppointmentGUI extends javax.swing.JFrame {
         meTermin.add(miAdd);
 
         miDelete.setText("löschen");
+        miDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDeleteActionPerformed(evt);
+            }
+        });
         meTermin.add(miDelete);
 
         miChange.setText("ändern");
@@ -104,6 +109,15 @@ public class AppointmentGUI extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_miAddActionPerformed
+
+    private void miDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDeleteActionPerformed
+        int[] idc = liAusgabe.getSelectedIndices();
+        for(int i = 0; i < idc.length; i++){
+            Appointment a = bl.getElementAt(idc[i]);
+            bl.delete(a);
+        }
+        
+    }//GEN-LAST:event_miDeleteActionPerformed
 
     /**
      * @param args the command line arguments
