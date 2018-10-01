@@ -1,3 +1,6 @@
+
+import javax.swing.ListModel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,12 +12,14 @@
  * @author ASUS
  */
 public class AppointmentGUI extends javax.swing.JFrame {
-
+    AppointmentBL bl = new AppointmentBL();
     /**
      * Creates new form AppointmentGUI
      */
     public AppointmentGUI() {
         initComponents();
+        this.liAusgabe.setModel(bl);
+        
     }
 
     /**
@@ -33,11 +38,16 @@ public class AppointmentGUI extends javax.swing.JFrame {
         miChange = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        liAusgabe = new javax.swing.JList<>();
 
         meTermin.setText("Termin");
 
         miAdd.setText("hinzufügen");
+        miAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAddActionPerformed(evt);
+            }
+        });
         meTermin.add(miAdd);
 
         miDelete.setText("löschen");
@@ -54,9 +64,9 @@ public class AppointmentGUI extends javax.swing.JFrame {
 
         jLabel1.setText("Termine");
 
-        jList1.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 5, 5, new java.awt.Color(204, 102, 210)));
-        jList1.setComponentPopupMenu(jPopupMenu1);
-        jScrollPane1.setViewportView(jList1);
+        liAusgabe.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 5, 5, new java.awt.Color(204, 102, 210)));
+        liAusgabe.setComponentPopupMenu(jPopupMenu1);
+        jScrollPane1.setViewportView(liAusgabe);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -83,6 +93,17 @@ public class AppointmentGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void miAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAddActionPerformed
+        
+        AppointmentDialog dlg = new AppointmentDialog(this,true);
+        dlg.setVisible(true);
+        if(dlg.IsOK()){
+            Appointment ap = dlg.getAp();
+            bl.add(ap);
+            
+        }
+    }//GEN-LAST:event_miAddActionPerformed
 
     /**
      * @param args the command line arguments
@@ -121,9 +142,9 @@ public class AppointmentGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> liAusgabe;
     private javax.swing.JMenu meTermin;
     private javax.swing.JMenuItem miAdd;
     private javax.swing.JMenuItem miChange;

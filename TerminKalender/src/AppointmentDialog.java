@@ -1,3 +1,7 @@
+
+import java.time.LocalDateTime;
+import java.time.Month;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,6 +14,18 @@
  */
 public class AppointmentDialog extends javax.swing.JDialog {
 
+    public boolean IsOK() {
+        return isOK;
+    }
+    public AppointmentDialog(){
+        
+    }
+
+    public Appointment getAp() {
+        return ap;
+    }
+    boolean isOK = true;
+    Appointment ap = null;
     /**
      * Creates new form AppointmentDialog
      */
@@ -56,6 +72,11 @@ public class AppointmentDialog extends javax.swing.JDialog {
         getContentPane().add(jLabel2);
 
         tfMonth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.pink));
+        tfMonth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfMonthActionPerformed(evt);
+            }
+        });
         getContentPane().add(tfMonth);
 
         jLabel3.setText("                                   Jahr:");
@@ -83,13 +104,46 @@ public class AppointmentDialog extends javax.swing.JDialog {
         getContentPane().add(tfText);
 
         btÜbernehmen.setText("übernehmen");
+        btÜbernehmen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btÜbernehmenActionPerformed(evt);
+            }
+        });
         getContentPane().add(btÜbernehmen);
 
         btAbbrechen.setText("abbrechen");
+        btAbbrechen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAbbrechenActionPerformed(evt);
+            }
+        });
         getContentPane().add(btAbbrechen);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btÜbernehmenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btÜbernehmenActionPerformed
+       this.dispose();
+       int day = Integer.parseInt(this.tfDay.getText());
+       int month = Integer.parseInt(this.tfMonth.getText());
+       int year = Integer.parseInt(this.tfYear.getText());
+       int hour = Integer.parseInt(this.tfHour.getText());
+       int minute = Integer.parseInt(this.tfMinute.getText());
+       LocalDateTime date = LocalDateTime.of(year, month, day, hour, minute);
+      
+       ap = new Appointment(date,this.tfText.getText());
+       isOK = true;
+    
+    }//GEN-LAST:event_btÜbernehmenActionPerformed
+
+    private void btAbbrechenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbbrechenActionPerformed
+       this.dispose();
+       isOK = false;
+    }//GEN-LAST:event_btAbbrechenActionPerformed
+
+    private void tfMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfMonthActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfMonthActionPerformed
 
     /**
      * @param args the command line arguments
