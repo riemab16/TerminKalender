@@ -1,4 +1,5 @@
 
+import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 
 /*
@@ -124,6 +125,7 @@ public class AppointmentGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_miDeleteActionPerformed
 
     private void miChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miChangeActionPerformed
+        try{
         dlg.sendChangeDate(bl.getElementAt(liAusgabe.getSelectedIndex()));
         dlg.setVisible(true);
         if(dlg.IsOK()){
@@ -131,6 +133,11 @@ public class AppointmentGUI extends javax.swing.JFrame {
             bl.change(ap, this.liAusgabe.getSelectedIndex());
             
         }
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Noch keine veränderbaren Einträge vorhanden!");
+        }
+        
     }//GEN-LAST:event_miChangeActionPerformed
 
     /**
