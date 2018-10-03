@@ -12,7 +12,8 @@ import javax.swing.ListModel;
  * @author ASUS
  */
 public class AppointmentGUI extends javax.swing.JFrame {
-    AppointmentBL bl = new AppointmentBL();
+    private AppointmentBL bl = new AppointmentBL();
+    private AppointmentDialog dlg = new AppointmentDialog(this,true);
     /**
      * Creates new form AppointmentGUI
      */
@@ -60,6 +61,11 @@ public class AppointmentGUI extends javax.swing.JFrame {
 
         miChange.setText("ändern");
         miChange.setToolTipText("");
+        miChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miChangeActionPerformed(evt);
+            }
+        });
         meTermin.add(miChange);
 
         jPopupMenu1.add(meTermin);
@@ -100,8 +106,6 @@ public class AppointmentGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void miAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAddActionPerformed
-        
-        AppointmentDialog dlg = new AppointmentDialog(this,true);
         dlg.setVisible(true);
         if(dlg.IsOK()){
             Appointment ap = dlg.getAp();
@@ -118,6 +122,16 @@ public class AppointmentGUI extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_miDeleteActionPerformed
+
+    private void miChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miChangeActionPerformed
+        dlg.sendChangeDate(bl.getElementAt(liAusgabe.getSelectedIndex()));
+        dlg.setVisible(true);
+        if(dlg.IsOK()){
+            Appointment ap = dlg.getAp();
+            bl.change(ap, this.liAusgabe.getSelectedIndex());
+            
+        }
+    }//GEN-LAST:event_miChangeActionPerformed
 
     /**
      * @param args the command line arguments
