@@ -117,7 +117,7 @@ public class AppointmentGUI extends javax.swing.JFrame {
 
     private void miDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDeleteActionPerformed
         int[] idc = liAusgabe.getSelectedIndices();
-        for(int i = 0; i < idc.length; i++){
+        for(int i = idc.length-1; i >= 0; i--){
             Appointment a = bl.getElementAt(idc[i]);
             bl.delete(a);
         }
