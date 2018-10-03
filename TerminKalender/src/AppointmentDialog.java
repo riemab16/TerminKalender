@@ -1,13 +1,13 @@
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.time.LocalDateTime;
-import java.time.Month;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author ASUS
@@ -17,15 +17,27 @@ public class AppointmentDialog extends javax.swing.JDialog {
     public boolean IsOK() {
         return isOK;
     }
-    public AppointmentDialog(){
-        
+
+    public AppointmentDialog() {
+
     }
 
+    public void sendChangeDate(Appointment ap){
+        LocalDateTime datetime = ap.getDatum();
+        tfDay.setText("" + datetime.getDayOfMonth());
+        tfMonth.setText("" + datetime.getMonthValue());
+        tfYear.setText("" + datetime.getYear());
+        tfHour.setText("" + datetime.getHour());
+        tfMinute.setText("" + datetime.getMinute());
+        tfText.setText(ap.getText());
+    }
+    
     public Appointment getAp() {
         return ap;
     }
     boolean isOK = true;
     Appointment ap = null;
+
     /**
      * Creates new form AppointmentDialog
      */
@@ -123,22 +135,27 @@ public class AppointmentDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btÜbernehmenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btÜbernehmenActionPerformed
-       this.dispose();
-       int day = Integer.parseInt(this.tfDay.getText());
-       int month = Integer.parseInt(this.tfMonth.getText());
-       int year = Integer.parseInt(this.tfYear.getText());
-       int hour = Integer.parseInt(this.tfHour.getText());
-       int minute = Integer.parseInt(this.tfMinute.getText());
-       LocalDateTime date = LocalDateTime.of(year, month, day, hour, minute);
-      
-       ap = new Appointment(date,this.tfText.getText());
-       isOK = true;
-    
+        
+        try {
+            int day = Integer.parseInt(this.tfDay.getText());
+            int month = Integer.parseInt(this.tfMonth.getText());
+            int year = Integer.parseInt(this.tfYear.getText());
+            int hour = Integer.parseInt(this.tfHour.getText());
+            int minute = Integer.parseInt(this.tfMinute.getText()); 
+            LocalDateTime date = LocalDateTime.of(year, month, day, hour, minute);
+            this.dispose();
+            ap = new Appointment(date, this.tfText.getText());
+            isOK = true;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Falsche Eingabeparameter!");
+        }
+        
+
     }//GEN-LAST:event_btÜbernehmenActionPerformed
 
     private void btAbbrechenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbbrechenActionPerformed
-       this.dispose();
-       isOK = false;
+        this.dispose();
+        isOK = false;
     }//GEN-LAST:event_btAbbrechenActionPerformed
 
     private void tfMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfMonthActionPerformed
